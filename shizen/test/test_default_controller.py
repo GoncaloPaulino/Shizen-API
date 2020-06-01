@@ -18,7 +18,7 @@ class TestDefaultController(BaseTestCase):
         
         """
         response = self.client.open(
-            '/GoncaloPaulino/Shizen/1.0.0/flowers',
+            '/flowers',
             method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -29,7 +29,7 @@ class TestDefaultController(BaseTestCase):
         
         """
         response = self.client.open(
-            '/GoncaloPaulino/Shizen/1.0.0/flower/{idx}'.format(idx=2),
+            '/flower/{idx}'.format(idx=2),
             method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -41,7 +41,7 @@ class TestDefaultController(BaseTestCase):
         """
         body = Object()
         response = self.client.open(
-            '/GoncaloPaulino/Shizen/1.0.0/recognize',
+            '/recognize',
             method='POST',
             data=json.dumps(body),
             content_type='image/png')
