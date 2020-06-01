@@ -5,31 +5,31 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from shizen.models.plant import Plant  # noqa: E501
+from shizen.models.flor import Flor  # noqa: E501
 from shizen.test import BaseTestCase
 
 
 class TestDefaultController(BaseTestCase):
     """DefaultController integration test stubs"""
 
-    def test_get_all_plants(self):
-        """Test case for get_all_plants
+    def test_get_all_flower(self):
+        """Test case for get_all_flower
 
         
         """
         response = self.client.open(
-            '/plants',
+            '/GoncaloPaulino/Shizen/1.0.0/flowers',
             method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_plant(self):
-        """Test case for get_plant
+    def test_get_flower(self):
+        """Test case for get_flower
 
         
         """
         response = self.client.open(
-            '/plant/{idx}'.format(idx=2),
+            '/GoncaloPaulino/Shizen/1.0.0/flower/{idx}'.format(idx=2),
             method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -41,7 +41,7 @@ class TestDefaultController(BaseTestCase):
         """
         body = Object()
         response = self.client.open(
-            '/recognize',
+            '/GoncaloPaulino/Shizen/1.0.0/recognize',
             method='POST',
             data=json.dumps(body),
             content_type='image/png')

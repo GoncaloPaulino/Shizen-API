@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Simple API
+  title: Shizen API
   description: Shizen
   contact:
     email: grpaulino8@gmail.com
@@ -9,18 +9,15 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: https://localhost:8080
+- url: https://virtserver.swaggerhub.com/GoncaloPaulino/Shizen/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:8080
   description: Shizen Server
-tags:
-- name: admins
-  description: Secured Admin-only calls
-- name: developers
-  description: Operations available to regular developers
 paths:
-  /plants:
+  /flowers:
     get:
-      description: Returns every plant in the database.
-      operationId: get_all_plants
+      description: Returns every flower in the database.
+      operationId: get_all_flower
       responses:
         "200":
           description: success
@@ -29,19 +26,19 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Plant'
+                  $ref: '#/components/schemas/Flor'
                 x-content-type: application/json
         "401":
           description: error
       x-openapi-router-controller: shizen.controllers.default_controller
-  /plant/{idx}:
+  /flower/{idx}:
     get:
-      description: Returns info about a specific plant.
-      operationId: get_plant
+      description: Returns info about a specific flower.
+      operationId: get_flower
       parameters:
       - name: idx
         in: path
-        description: The plant ID
+        description: The flower ID
         required: true
         style: simple
         explode: false
@@ -54,13 +51,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Plant'
+                $ref: '#/components/schemas/Flor'
         "401":
           description: error
       x-openapi-router-controller: shizen.controllers.default_controller
   /recognize:
     post:
-      description: Recognizes which plant is in a specific image.
+      description: Recognizes which flower is in a specific image.
       operationId: recognize
       requestBody:
         content:
@@ -74,47 +71,61 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Plant'
+                $ref: '#/components/schemas/Flor'
         "401":
           description: error
         "402":
-          description: plant not found
+          description: flower not found
       x-openapi-router-controller: shizen.controllers.default_controller
 components:
   schemas:
-    Plant:
+    Flor:
       required:
+      - classifiable
       - common_name
       - description
       - idx
-      - image_url
       - label_name
+      - max_height
+      - min_height
+      - more_info
+      - native
       - scientific_name
       type: object
       properties:
         idx:
           type: integer
-          example: 1
+          example: 0
         common_name:
           type: string
-          example: Arvore
+          example: Flor
         scientific_name:
           type: string
-          example: Avorus
+          example: Florus
         label_name:
           type: string
-          example: arvore1
+          example: flor
         description:
           type: string
-          example: descricao
-        image_url:
+          example: Isto é uma flor.
+        min_height:
+          type: number
+          format: double
+          example: 50
+        max_height:
+          type: number
+          format: double
+          example: 500
+        more_info:
           type: string
-          example: https://aa.com/adasda.jpg
+          example: https://pt.wikipedia.org/wiki/Flor
       example:
-        image_url: https://aa.com/adasda.jpg
-        description: descricao
-        scientific_name: Avorus
-        idx: 1
-        common_name: Arvore
-        label_name: arvore1
+        min_height: 50
+        description: Isto é uma flor.
+        more_info: https://pt.wikipedia.org/wiki/Flor
+        scientific_name: Florus
+        max_height: 500
+        idx: 0
+        common_name: Flor
+        label_name: flor
 

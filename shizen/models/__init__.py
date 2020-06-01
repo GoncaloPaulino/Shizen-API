@@ -3,4 +3,4 @@
 # flake8: noqa
 from __future__ import absolute_import
 # import models into model package
-from shizen.models.plant import Plant
+from shizen.models.flor import Flor
