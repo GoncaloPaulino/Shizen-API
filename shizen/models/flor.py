@@ -14,7 +14,7 @@ class Flor(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, idx: int=None, common_name: str=None, scientific_name: str=None, label_name: str=None, description: str=None, min_height: float=None, max_height: float=None, more_info: str=None):  # noqa: E501
+    def __init__(self, idx: int=None, common_name: str=None, scientific_name: str=None, label_name: str=None, description: str=None, min_height: float=None, max_height: float=None, native: str=None, classifiable: int=None, more_info: str=None):  # noqa: E501
         """Flor - a model defined in Swagger
 
         :param idx: The idx of this Flor.  # noqa: E501
@@ -31,6 +31,10 @@ class Flor(Model):
         :type min_height: float
         :param max_height: The max_height of this Flor.  # noqa: E501
         :type max_height: float
+        :param native: The native of this Flor.  # noqa: E501
+        :type native: str
+        :param classifiable: The classifiable of this Flor.  # noqa: E501
+        :type classifiable: int
         :param more_info: The more_info of this Flor.  # noqa: E501
         :type more_info: str
         """
@@ -42,6 +46,8 @@ class Flor(Model):
             'description': str,
             'min_height': float,
             'max_height': float,
+            'native': str,
+            'classifiable': int,
             'more_info': str
         }
 
@@ -53,6 +59,8 @@ class Flor(Model):
             'description': 'description',
             'min_height': 'min_height',
             'max_height': 'max_height',
+            'native': 'native',
+            'classifiable': 'classifiable',
             'more_info': 'more_info'
         }
         self._idx = idx
@@ -62,6 +70,8 @@ class Flor(Model):
         self._description = description
         self._min_height = min_height
         self._max_height = max_height
+        self._native = native
+        self._classifiable = classifiable
         self._more_info = more_info
 
     @classmethod
@@ -235,6 +245,52 @@ class Flor(Model):
             raise ValueError("Invalid value for `max_height`, must not be `None`")  # noqa: E501
 
         self._max_height = max_height
+
+    @property
+    def native(self) -> str:
+        """Gets the native of this Flor.
+
+
+        :return: The native of this Flor.
+        :rtype: str
+        """
+        return self._native
+
+    @native.setter
+    def native(self, native: str):
+        """Sets the native of this Flor.
+
+
+        :param native: The native of this Flor.
+        :type native: str
+        """
+        if native is None:
+            raise ValueError("Invalid value for `native`, must not be `None`")  # noqa: E501
+
+        self._native = native
+
+    @property
+    def classifiable(self) -> int:
+        """Gets the classifiable of this Flor.
+
+
+        :return: The classifiable of this Flor.
+        :rtype: int
+        """
+        return self._classifiable
+
+    @classifiable.setter
+    def classifiable(self, classifiable: int):
+        """Sets the classifiable of this Flor.
+
+
+        :param classifiable: The classifiable of this Flor.
+        :type classifiable: int
+        """
+        if classifiable is None:
+            raise ValueError("Invalid value for `classifiable`, must not be `None`")  # noqa: E501
+
+        self._classifiable = classifiable
 
     @property
     def more_info(self) -> str:

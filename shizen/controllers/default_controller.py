@@ -6,6 +6,8 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import time
 
+import os
+
 from shizen.models.flor import Flor  # noqa: E501
 from shizen import util
 
@@ -23,8 +25,10 @@ def get_all_flower():  # noqa: E501
     cursor.execute("SELECT * FROM flowers")
 
     flower_list = []
-    for id_flower, common_name, scientific_name, label_name, description, image_url in cursor:
-        flower = Flor(id_flower, common_name, scientific_name, label_name, description, image_url)
+    for id_flower, common_name, scientific_name, label_name, description, min_height, max_height, native, classifiable, \
+        more_info in cursor:
+        flower = Flor(id_flower, common_name, scientific_name, label_name, description, min_height, max_height, native,
+                      classifiable, more_info)
         flower_list.append(flower)
 
     cursor.close()
@@ -48,8 +52,9 @@ def get_flower(idx):  # noqa: E501
     cursor.execute("SELECT * FROM flowers WHERE id=%s", (idx,))
 
     flower = None
-    for id_flower, common_name, scientific_name, label_name, description, image_url in cursor:
-        flower = Flor(id_plant, common_name, scientific_name, label_name, description, image_url)
+    for id_flower, common_name, scientific_name, label_name, description, min_height, max_height, native, classifiable, more_info in cursor:
+        flower = Flor(id_flower, common_name, scientific_name, label_name, description, min_height, max_height, native,
+                      classifiable, more_info)
         break
 
     cursor.close()
@@ -95,8 +100,9 @@ def recognize(body=None):  # noqa: E501
     cursor.execute("SELECT * FROM flowers WHERE label_name=%s", (flower_lbl,))
 
     flower = None
-    for id_flower, common_name, scientific_name, label_name, description, image_url in cursor:
-        flower = Flor(id_flower, common_name, scientific_name, label_name, description, image_url)
+    for id_flower, common_name, scientific_name, label_name, description, min_height, max_height, native, classifiable, more_info in cursor:
+        flower = Flor(id_flower, common_name, scientific_name, label_name, description, min_height, max_height, native,
+                      classifiable, more_info)
         break
 
     cursor.close()
