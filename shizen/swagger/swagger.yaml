@@ -75,6 +75,66 @@ paths:
         "402":
           description: flower not found
       x-openapi-router-controller: shizen.controllers.default_controller
+  /fav/{idu}:
+    get:
+      description: Returns a user favourites list.
+      operationId: get_fav_usr
+      parameters:
+        - name: idu
+          in: path
+          description: Id of the user
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+        "401":
+          description: error
+      x-openapi-router-controller: shizen.controllers.default_controller
+  /fav/{idu}/{idf}:
+    get:
+      description: Toggle the favourite status of a plant as a user.
+      operationId: toggle_fav_usr
+      parameters:
+        - name: idu
+          in: path
+          description: Id of the user
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+        - name: idf
+          in: path
+          description: Id of the flower
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+      responses:
+        "200":
+          description: success
+          content:
+            text/plain:
+              schema:
+                type: intger
+                example: 0
+        "401":
+          description: error
+      x-openapi-router-controller: shizen.controllers.default_controller
 components:
   schemas:
     Flor:

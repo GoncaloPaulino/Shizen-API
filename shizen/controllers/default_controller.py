@@ -109,3 +109,61 @@ def recognize(body=None):  # noqa: E501
     connection.close()
 
     return flower
+
+
+def get_fav_usr(idu):
+    """get_fav_usr
+
+    Returns a user favourites list. # noqa: E501
+
+    :param idu: The user ID
+    :type idu: int
+
+    :rtype: Array of Int
+    """
+    connection = mariadb.connect(user="root", host="localhost", database="shizen", password="")
+    cursor = connection.cursor()
+    cursor.execute("SELECT id_flower FROM favourites WHERE id_user=%s", (idu,))
+
+    favs = []
+    for id_flower in cursor:
+        favs.append(int(id_flower[0]))
+        continue
+
+    cursor.close()
+    connection.close()
+
+    return favs
+
+
+def toggle_fav_usr(idu, idf):
+    """get_fav_usr
+
+    Toggle the favourite status of a plant as a user. # noqa: E501
+
+    :param idu: The user ID
+    :type idu: int
+
+    :param idf: The flower ID
+    :type idf: int
+
+    :rtype: New toggle status
+    """
+    connection = mariadb.connect(user="root", host="localhost", database="shizen", password="")
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM favourites WHERE id_user=%s AND id_flower=%s", (idu,idf,))
+    cursor.fetchone()
+
+    res = 2
+
+    if cursor.rowcount == 0:
+        cursor.execute("INSERT INTO favourites VALUES (%s, %s)", (idu, idf,))
+        res = 1
+    else:
+        cursor.execute("DELETE FROM favourites WHERE id_user=%s AND id_flower=%s", (idu,idf,))
+        res = 0
+
+    cursor.close()
+    connection.close()
+
+    return res
