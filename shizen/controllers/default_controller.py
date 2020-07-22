@@ -88,7 +88,7 @@ def recognize(body=None):  # noqa: E501
 
     result = loaded_model.predict(img_holder)
     os.remove(flower_path)
-    classes = ["carvalho", "platano", "sobreiro"]
+    classes = ["daisy", "dandelion", "roses", "sunflowers", "tulips"]
 
     am = np.argmax(result[0])
     print(result[0])
