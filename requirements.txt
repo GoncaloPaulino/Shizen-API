@@ -4,5 +4,5 @@ setuptools >= 21.0.0
 mariadb
 numpy
 tensorflow == 2.1.0
-tensorflow-gpu == 2.1.0
+tensorflow-gpu == 2.12.0
 pillow
